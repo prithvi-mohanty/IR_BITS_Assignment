@@ -11,9 +11,9 @@
 
 | Name | BITS ID | Contribution |
 |------|---------|--------------|
-| Prithvi Mohanty | 2025AA05707 | 33% |
-| Monika Sharma | *(fill in)* | 33% |
-| Hanni Rajavikra... | *(fill in)* | 34% |
+| Prithvi Mohanty | 2025AA05707 | 34% |
+| Monika Sharma | 2025AA05735 | 33% |
+| Hanni Rajavikra... | 2025AA05740 | 33% |
 
 ---
 
