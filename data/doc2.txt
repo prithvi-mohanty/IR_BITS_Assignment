@@ -1,0 +1,17 @@
+The level and determinants of COVID-19
+vaccine acceptance in Ghana
+
+As part of the efforts to curb the COVID-19 pandemic, the government of Ghana has
+received several shipments of approved vaccines, and administration has begun in the
+country. Studies examining the determinants of COVID-19 vaccine acceptance in Ghana
+were mostly conducted before the vaccination exercise. Vaccine acceptance decisions
+however vary with time and hence, peoples’ decisions may have changed once vaccines
+became accessible. This study examines the level and determinants of COVID-19 vaccine
+acceptance among adult Ghanaians during the vaccination exercise.
+
+Methods
+The study was a cross-sectional online survey involving Ghanaian adults (18 years and
+above) eligible to take the COVID-19 vaccine. The study was conducted from 18th May
+2021 to 14th July 2021 and the questionnaire was answered by 362 respondents. Snowball
+sampling technique was utilized to obtain the respondents. Probit regression analysis was
+used to identify factors influencing COVID-19 vaccine acceptance.

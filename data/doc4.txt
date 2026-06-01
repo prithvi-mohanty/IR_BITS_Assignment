@@ -1,0 +1,37 @@
+HUMAN VACCINES & IMMUNOTHERAPEUTICS
+
+Confidence in COVID-19 vaccine effectiveness and safety and its effect on vaccine
+COVID-19 is a major public health threat associated with increased disease burden, mortality, and economic
+loss to countries and communities. Safe and efficacious COVID-19 vaccines are key in halting and reversing
+the pandemic. Low confidence in vaccines has been one of the factors leading to hesitancy. We aimed to
+assess the COVID-19 vaccine confidence (safety and effectiveness), associated factors, and its effects on
+vaccine uptake among general community members in Tanzania. This was a community-based crosssectional survey conducted from December 2021 to April 2022 in six regions of Tanzania mainland and two
+regions in Zanzibar. Participants were interviewed using an electronic questionnaire. Multiple logistic
+regression models estimated odds ratios (ORs) and 95% confidence interval (CI) for factors associated
+with vaccine confidence. All analyses were performed using SPSS version 25.0. The study enrolled 3470
+general Tanzanian community members; their mean age was 40.3 (standard deviation ±14.9) years, and
+34% were males. The proportion of COVID-19 vaccine confidence was 54.6%. Geographical region,
+residence area, COVID-19 disease risk perception, and good knowledge of COVID-19 vaccines were
+significantly associated with COVID-19 vaccine confidence. Confidence in COVID-19 vaccines was asso­
+ciated with over three times higher odds of vaccine uptake. Confidence in COVID-19 vaccines was low in
+Tanzania. Innovative community engagement strategies and region-specific interventions are needed to
+improve comprehensive knowledge and address community perceptions and attitudes toward COVID-19
+vaccines.
+
+
+Introduction
+Vaccine confidence is an issue of public health concern, espe­
+cially in the era of emerging and reemerging infectious diseases.
+It is defined by public perceptions of three components: vaccine
+safety, effectiveness, and importance.1 Lack of trust and confi­
+dence in vaccines is an important determinant of vaccine hesi­
+tancy, and it influences uptake, affects national immunization
+targets, and increases outbreaks of vaccine-preventable
+diseases.1–3 Hesitancy in available childhood and other vaccines
+has led to a resurgence of vaccine-preventable diseases such as
+measles and diarrhea, and in some instances, it has affected polio
+eradication success efforts, threatening years of progress in the
+global fight against infectious diseases.4,5 The World Health
+Organization (WHO) has identified reluctance or refusal to
+vaccinate as one of the 10 global health security threats in 2019
+that need to be tracked and addressed by countries.6

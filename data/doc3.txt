@@ -1,0 +1,44 @@
+Misinformation of COVID‑19
+
+vaccines and vaccine hesitancy
+The current study examined various types of misinformation related to the COVID-19 vaccines and
+their relationships to vaccine hesitancy and refusal. Study 1 asked a sample of full-time working
+professionals in the US (n = 505) about possible misinformation they were exposed to related to the
+COVID-19 vaccines. Study 2 utilized an online survey to examine U.S. college students’ (n = 441)
+knowledge about COVID-19 vaccines, and its associations with vaccine hesitancy and behavioral
+intention to get a COVID-19 vaccine. Analysis of open-ended responses in Study 1 revealed that 57.6%
+reported being exposed to conspiratorial misinformation such as COVID-19 vaccines are harmful
+and dangerous. The results of a structural equation modeling analysis for Study 2 supported our
+hypotheses predicting a negative association between the knowledge level and vaccine hesitancy and
+between vaccine hesitancy and behavioral intention. Vaccine hesitancy mediated the relationship
+between the vaccine knowledge and behavioral intention. Findings across these studies suggest
+exposure to misinformation and believing it as true could increase vaccine hesitancy and reduce
+behavioral intention to get vaccinated.
+Health misinformation can kill people, both directly and indirectly. During a public health crisis such as the
+COVID-19 pandemic, exposure to misinformation about the virus’ spread, symptoms of infection, testing opportunities, and prevention methods can lead to erroneous appraisals of the threat, maladaptive coping behaviors,
+and a range of fatal consequences. More critically, misinformation about the new COVID-19 vaccines and their
+development process has the potential to induce high levels of vaccine hesitancy in the p
+­ ublic1,2, preventing vaccination rates sufficient for achieving herd immunity. Due to the high level of uncertainty caused by the pandemic
+and the relatively fast speed of vaccine development compared to other types of traditional vaccines, the public
+naturally sought out information to address their vaccine concerns and guide critical decision-making such as
+whether to get vaccinated or not. However, separating relevant and valid information from false and distorted
+misinformation about COVID-19 vaccines is difficult when a vast amount of material is being conveyed through
+media outlets and websites of varying reliability and accuracy. One critically important challenge to obtaining
+reliable, accurate COVID-19 vaccine information includes the pervasive, unsolicited, and dubious pseudo-news
+items communicated via online and social media platforms by various types of ­actors1.
+Because many people acquire and share news via social ­media3, misinformation can spread quickly through
+their social networks, and the likelihood of exposure to disinformation and misrepresentations about the vaccine
+from unverified sources is high. The resulting increase in public anxiety and negative emotional and behavioral
+responses complicates the process of advising the public through health experts and agencies such as the CDC
+and WHO. The current research focuses on people’s perceptions of the nature and types of misinformation about
+COVID-19 ­vaccines4. Additionally, this research examines the relationship between knowledge about COVID-19
+vaccines, including its relevant misinformation, and vaccine hesitancy and refusal.
+By acknowledging the serious negative impact of health misinformation and its spread, research in infodemiology (i.e., epidemiology of (mis)information5,6) identifies the knowledge translation gap between evidence
+produced by experts and the public’s actual practices and beliefs. Research has identified various quality markers (e.g., source, technical, and content criteria) and their relations with outcome variables (e.g., health-related
+knowledge and behavioral changes) necessary for effective health communication on the internet. Studies have
+shown both algorithmic-based correction on Facebook and social correction via anonymous commenters can
+be effective in reducing beliefs in health misinformation. However, people who believe in conspiracy theories
+tend to discredit algorithm-based c­ orrections7,8.
+More research is needed to (a) observe and define the trends and prevalence of health misinformation on
+various types of social media; (b) understand how relevant misinformation is shared; (c) evaluate the reach and
+influence of misinformation; and (d) develop and test effective i­nterventions9,10. With the aim of increasing
