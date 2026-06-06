@@ -7,11 +7,12 @@ Framework: Streamlit
 
 Group 64
   Prithvi Mohanty        — 2025AA05707
-  Monika Sharma          — <BITS_ID>
-  Hanni Rajavikra...     — <BITS_ID>
+  Monika Sharma          — <fill in BITS ID>
+  Hanni Rajavikra...     — <fill in BITS ID>
 """
 
 import re
+import math
 import time
 import random
 from collections import defaultdict
@@ -29,9 +30,9 @@ from nltk.stem import PorterStemmer, SnowballStemmer, WordNetLemmatizer
 from nltk import pos_tag
 
 
-# ──────────────────────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
 # Built-in corpus: 4 COVID vaccine papers + 4 IR/NLP/ML documents (8 total)
-# ──────────────────────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
 CORPUS = {
     0: (
         "COVID Vaccine Barriers — Ghana Qualitative Study",
@@ -83,7 +84,8 @@ Boolean retrieval uses AND, OR, and NOT operators to combine query terms for pre
 The vector space model represents documents and queries as vectors in high-dimensional term space.
 TF-IDF weighting assigns higher importance to terms frequent in one document but rare across the corpus.
 Cosine similarity measures the angle between document and query vectors to rank retrieval results.
-Ranked retrieval returns a sorted list of documents ordered by their relevance score to the user query.""",
+Ranked retrieval returns a sorted list of documents ordered by their relevance score to the user query.
+Inverted index lookup is efficient. Lookup queries retrieve matching documents.""",
     ),
     5: (
         "NLP Preprocessing Pipeline",
@@ -118,9 +120,9 @@ Learning-to-rank methods combine multiple retrieval signals into a unified ranki
 }
 
 
-# ──────────────────────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
 # NLP helpers
-# ──────────────────────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
 _STOPWORDS  = set(_sw_corpus.words("english"))
 _porter     = PorterStemmer()
 _snowball   = SnowballStemmer("english")
@@ -140,7 +142,7 @@ def preprocess(text: str, lowercase: bool, remove_sw: bool,
         text = text.replace("-", " ")
     if lowercase:
         text = text.lower()
-    text   = re.sub(r"[^a-z0-9\s]", "", text)
+    text   = re.sub(r"[^a-zA-Z0-9\s]", "", text)
     tokens = word_tokenize(text)
     tokens = [t for t in tokens if len(t) > 1]
     if remove_sw:
@@ -163,9 +165,9 @@ def build_inv_index(processed_docs: dict) -> dict:
     return {k: sorted(v) for k, v in idx.items()}
 
 
-# ──────────────────────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
 # Page config
-# ──────────────────────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
 st.set_page_config(
     page_title="IR System — AIMLCZG537",
     page_icon="🔍",
@@ -173,9 +175,9 @@ st.set_page_config(
 )
 
 
-# ──────────────────────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
 # Sidebar: navigation + group details
-# ──────────────────────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
 with st.sidebar:
     st.title("🔍 IR Assignment 1")
     st.markdown("**Course:** AIMLCZG537 / DSECLZG537")
@@ -203,9 +205,9 @@ st.title("🔍 End-to-End Information Retrieval System")
 st.caption("AIMLCZG537 / DSECLZG537 — Semester 2, 2025-26 | Assignment 1 | Group 64")
 
 
-# ──────────────────────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
 # Session state: persist corpus + preprocessing settings across sections
-# ──────────────────────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
 if "docs" not in st.session_state:
     st.session_state.docs       = {k: v[1] for k, v in CORPUS.items()}
     st.session_state.doc_titles = {k: v[0] for k, v in CORPUS.items()}
@@ -227,9 +229,9 @@ def get_processed() -> dict:
     }
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+# ===========================================================================
 # SECTION A — Document Upload
-# ══════════════════════════════════════════════════════════════════════════════
+# ===========================================================================
 if section.startswith("A"):
     st.header("A. Document Upload & Corpus")
 
@@ -260,9 +262,9 @@ if section.startswith("A"):
             st.write(text)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+# ===========================================================================
 # SECTION B — Text Preprocessing
-# ══════════════════════════════════════════════════════════════════════════════
+# ===========================================================================
 elif section.startswith("B"):
     st.header("B. Text Preprocessing")
 
@@ -308,9 +310,10 @@ elif section.startswith("B"):
     vocab_proc = len(inv_idx)
 
     col1, col2, col3 = st.columns(3)
+    reduction = (1 - vocab_proc / vocab_raw) * 100 if vocab_raw else 0
     col1.metric("Raw vocabulary (tokenize only)", vocab_raw)
     col2.metric("After preprocessing", vocab_proc)
-    col3.metric("Vocabulary reduction", f"{(1 - vocab_proc / vocab_raw) * 100:.1f}%")
+    col3.metric("Vocabulary reduction", f"{reduction:.1f}%")
 
     if st.button("Show inverted index (first 30 terms)"):
         rows = [{"Term": t, "Doc Freq": len(docs), "Postings": str(docs)}
@@ -404,9 +407,9 @@ word, which risks vocabulary fragmentation). Lemmatization preserves semantic pr
         """)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+# ===========================================================================
 # SECTION C — Phrase Query
-# ══════════════════════════════════════════════════════════════════════════════
+# ===========================================================================
 elif section.startswith("C"):
     st.header("C. Phrase Query Processing")
 
@@ -465,7 +468,10 @@ as a consecutive sequence in that document. This is a **false positive**.
         terms  = preprocess(q, st.session_state.pp_lower, st.session_state.pp_sw,
                             st.session_state.pp_hyph, st.session_state.pp_method)
         if len(terms) < 2:
-            return set(st.session_state.docs.keys()), terms, []
+            # single-token query: fall back to regular inverted-index lookup
+            if not terms:
+                return set(), terms, []
+            return set(pos_idx.get(terms[0], {}).keys()), terms, []
         biwords = [f"{terms[i]} {terms[i+1]}" for i in range(len(terms) - 1)]
         result  = set(st.session_state.docs.keys())
         for bw in biwords:
@@ -477,12 +483,12 @@ as a consecutive sequence in that document. This is a **false positive**.
                             st.session_state.pp_hyph, st.session_state.pp_method)
         if not terms:
             return set()
-        common = set(pos_idx[terms[0]].keys())
+        common = set(pos_idx.get(terms[0], {}).keys())
         for t in terms[1:]:
-            common &= set(pos_idx[t].keys())
+            common &= set(pos_idx.get(t, {}).keys())
         result = set()
         for doc in common:
-            positions = [pos_idx[t][doc] for t in terms]
+            positions = [pos_idx.get(t, {}).get(doc, []) for t in terms]
             for start in positions[0]:
                 if all(start + i in positions[i] for i in range(1, len(terms))):
                     result.add(doc)
@@ -536,11 +542,15 @@ but cannot distinguish documents where the constituent words appear non-consecut
 
     # ── Batch comparison table ──
     st.subheader("Batch Query Comparison")
+    # "index lookup queries" is engineered to produce a confirmed false positive:
+    # Doc 4 contains "index lookup" (adjacent) and "lookup queries" (adjacent) as separate
+    # phrase fragments, so biword matches it — but "index lookup queries" never appears
+    # consecutively, so positional correctly rejects it.
     BATCH_QUERIES = [
         "vaccine barriers",
         "information retrieval",
         "machine learning",
-        "phrase query index",
+        "index lookup queries",   # ← engineered false-positive demo
         "stop word removal",
     ]
     if st.button("Run batch comparison (5 preset queries)"):
@@ -549,18 +559,28 @@ but cannot distinguish documents where the constituent words appear non-consecut
             bi, _, _ = query_biword(q)
             pos       = query_positional(q)
             rows.append({
-                "Query":               q,
-                "Biword docs":         str(sorted(bi)),
-                "Positional docs":     str(sorted(pos)),
-                "False positives":     str(sorted(bi - pos)),
-                "FP count":            len(bi - pos),
+                "Query":              q,
+                "Biword docs":        str(sorted(bi)),
+                "Positional docs":    str(sorted(pos)),
+                "False positives":    str(sorted(bi - pos)),
+                "FP count":           len(bi - pos),
             })
-        st.dataframe(pd.DataFrame(rows), use_container_width=True)
+        df_batch = pd.DataFrame(rows)
+        st.dataframe(df_batch, use_container_width=True)
+        st.info(
+            "**Note on 'index lookup queries':** Doc 4 contains the bigrams "
+            "*'index lookup'* and *'lookup queries'* as separate phrase fragments "
+            "(the word *lookup* appears twice: once after *index*, once before *queries*). "
+            "Biword index returns Doc 4 — a **false positive** — because it cannot verify "
+            "that all three words appear consecutively. "
+            "Positional index correctly rejects Doc 4 (no document has "
+            "*index → lookup → queries* at consecutive positions)."
+        )
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+# ===========================================================================
 # SECTION D — BST vs B-Tree
-# ══════════════════════════════════════════════════════════════════════════════
+# ===========================================================================
 elif section.startswith("D"):
     st.header("D. Dictionary Search: BST vs B-Tree")
 
@@ -595,7 +615,7 @@ elif section.startswith("D"):
                 else:                node = node.right
             return None, steps
 
-    # ── B-Tree proxy: sorted array + binary search — O(log n) guaranteed ──
+    # ── B-Tree proxy: sorted array + binary search (O(log n) guaranteed) ──
     class BTree:
         def __init__(self): self.keys = []; self.data = {}
 
@@ -635,10 +655,10 @@ elif section.startswith("D"):
         st.markdown("- *Random insertion* → roughly balanced → O(log n) average")
         st.markdown("- *Sorted insertion* → degenerate right chain → O(n) worst case")
     with col2:
-        st.markdown("**B-Tree (order 4) — binary search proxy**")
+        st.markdown("**B-Tree — modelled via sorted-array binary search**")
         st.markdown(f"- Vocabulary: **{len(vocab)}** terms")
-        st.markdown("- Sorted keys in array — binary search gives **O(log n) guaranteed**")
-        st.markdown("- All leaves at same depth; cache-friendly access pattern")
+        st.markdown("- Sorted keys in array → binary search gives **O(log₂ n) guaranteed**")
+        st.markdown("- Performance mirrors a real B-Tree: bounded depth, cache-friendly sequential access")
 
     # ── Manual lookup ──
     st.subheader("Manual Term Lookup")
@@ -702,16 +722,16 @@ elif section.startswith("D"):
 | B-Tree (guaranteed) | {avg_b_s:.1f} | {df["B-Tree steps"].max()} | {avg_b_t:.2f} μs | **O(log n) always** |
 
 The BST with **sorted insertion** reached up to **{max_s_s} steps** — demonstrating the O(n) degenerate case.
-B-Tree achieved at most **{df["B-Tree steps"].max()} steps** for all {n_q} queries, confirming O(log₂({len(vocab)})) ≈ {int(len(vocab)**0.5+1)} bound.
+B-Tree achieved at most **{df["B-Tree steps"].max()} steps** for all {n_q} queries, confirming O(log₂({len(vocab)})) ≈ {math.ceil(math.log2(max(len(vocab),2)))} bound.
 
 **Conclusion:** B-Trees are mandatory for production IR systems. Lucene and Elasticsearch use B-tree variants
 for their dictionary structures because they guarantee search time and support prefix/range queries efficiently.
         """)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+# ===========================================================================
 # SECTION E — Tolerant Retrieval
-# ══════════════════════════════════════════════════════════════════════════════
+# ===========================================================================
 elif section.startswith("E"):
     st.header("E. Tolerant Retrieval")
 
@@ -747,7 +767,9 @@ elif section.startswith("E"):
         if not word: return "0000"
         w   = word.upper()
         tbl = {"BFPV": "1", "CGJKQSXZ": "2", "DT": "3", "L": "4", "MN": "5", "R": "6"}
-        code, prev = w[0], None
+        code = w[0]
+        # initialise prev to the first letter's own code so adjacent same-group letters are suppressed
+        prev = next((d for grp, d in tbl.items() if w[0] in grp), None)
         for ch in w[1:]:
             for letters, digit in tbl.items():
                 if ch in letters:
@@ -833,7 +855,7 @@ Limitation: very short prefixes (e.g. `a*`) produce high-frequency grams (`$a`) 
 **Levenshtein distance** counts the minimum number of single-character edits
 (insert, delete, substitute) needed to transform one string into another.
 
-- `infromation` → `information`: 1 transposition (swap `r` and `o`) → distance = 1
+- `infromation` → `information`: transposition of `r` and `o` → **distance = 2** (standard Levenshtein counts delete + insert; Damerau-Levenshtein would give 1)
 - `retrival` → `retrieval`: 1 insertion (`e`) → distance = 1
 
 We compare the misspelled query against every vocabulary term and return
@@ -971,9 +993,9 @@ Double Metaphone is a more accurate alternative for production systems.
         st.dataframe(pd.DataFrame(rows), use_container_width=True)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+# ===========================================================================
 # SECTION G — Discussion & Inference
-# ══════════════════════════════════════════════════════════════════════════════
+# ===========================================================================
 elif section.startswith("G"):
     st.header("G. Discussion & Inference")
 
