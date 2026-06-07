@@ -21,7 +21,8 @@ import pandas as pd
 import streamlit as st
 
 import nltk
-for _pkg in ["punkt", "punkt_tab", "stopwords", "wordnet", "averaged_perceptron_tagger"]:
+for _pkg in ["punkt", "punkt_tab", "stopwords", "wordnet",
+             "averaged_perceptron_tagger", "averaged_perceptron_tagger_eng"]:
     nltk.download(_pkg, quiet=True)
 
 from nltk.tokenize import word_tokenize
