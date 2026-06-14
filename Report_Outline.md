@@ -15,8 +15,6 @@
 | Monika Sharma | 2025AA05735 | 33% |
 | Hanni Rajavikram | 2025AA05740 | 34% |
 
-> **Before submission:** Drop the 11 screenshots (`01_*.png` … `11_*.png`) into the `screenshots/` folder — the image links in this report will resolve automatically. Some screenshots are reused across multiple figures to keep the file count manageable; the captions below tell you exactly what each PNG should depict.
-
 ---
 
 ## 1. Objective
@@ -280,14 +278,6 @@ pip install streamlit nltk pandas
 streamlit run app.py
 ```
 
-> **NLTK offline note:** On first run the app downloads 6 NLTK packages. If the lab VM has no internet access, pre-download them:
-> ```python
-> import nltk
-> for pkg in ["punkt","punkt_tab","stopwords","wordnet",
->             "averaged_perceptron_tagger","averaged_perceptron_tagger_eng"]:
->     nltk.download(pkg)
-> ```
-
 ---
 
 ## 9. Conclusion
@@ -300,7 +290,3 @@ This assignment implemented a complete end-to-end IR pipeline from first princip
 4. **Hybrid tolerant retrieval** (k-gram + edit distance) provides the best balance of speed and accuracy; Soundex adds phonetic matching for name-heavy corpora.
 
 The Streamlit interface makes every algorithmic trade-off directly observable, which is the core pedagogical goal of this assignment.
-
----
-
-*Report generated from IR Assignment 1, Group 64, AIMLCZG537/DSECLZG537, BITS Pilani WILP, Semester 2 2025-26*

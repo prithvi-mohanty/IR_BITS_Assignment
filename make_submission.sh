@@ -78,6 +78,8 @@ zip -r "$ZIP_NAME" "$REPO_BASENAME" \
   --exclude "$REPO_BASENAME/.idea/*" \
   --exclude "$REPO_BASENAME/.venv/*" \
   --exclude "$REPO_BASENAME/__pycache__/*" \
+  --exclude "$REPO_BASENAME/.DS_Store" \
+  --exclude "$REPO_BASENAME/**/.DS_Store" \
   --exclude "$REPO_BASENAME/*.sh" \
   --exclude "$REPO_BASENAME/Report_Outline.md" \
   --exclude "$REPO_BASENAME/IR_Assignment1_*.docx" \
