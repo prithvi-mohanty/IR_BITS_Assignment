@@ -319,7 +319,7 @@ elif section.startswith("B"):
     if st.button("Show inverted index (first 30 terms)"):
         rows = [{"Term": t, "Doc Freq": len(docs), "Postings": str(docs)}
                 for t, docs in sorted(inv_idx.items())[:30]]
-        st.dataframe(pd.DataFrame(rows), use_container_width=True)
+        st.dataframe(pd.DataFrame(rows), width="stretch")
 
     # ── Word-level stemming vs lemmatization table ──
     st.subheader("Stemming vs Lemmatization — Word-Level Comparison")
@@ -339,7 +339,7 @@ elif section.startswith("B"):
                 "Lemma (WordNet)": _lemmatizer.lemmatize(w, _wn_pos(tagged[0][1])),
                 "Same?":           "✓" if _porter.stem(w) == _lemmatizer.lemmatize(w, _wn_pos(tagged[0][1])) else "✗",
             })
-        st.dataframe(pd.DataFrame(rows), use_container_width=True)
+        st.dataframe(pd.DataFrame(rows), width="stretch")
 
     # ── Jaccard experiment ──
     st.subheader("Retrieval Quality: Jaccard Similarity (Stemming vs Lemmatization)")
@@ -390,7 +390,7 @@ elif section.startswith("B"):
                 "Jaccard":            f"{j:.2f}",
             })
 
-        st.dataframe(pd.DataFrame(rows), use_container_width=True)
+        st.dataframe(pd.DataFrame(rows), width="stretch")
         avg_j = sum(jaccards) / len(jaccards)
         st.success(f"**Average Jaccard similarity: {avg_j:.2f}**")
 
@@ -436,7 +436,7 @@ elif section.startswith("C"):
         if st.button("Show first 15 biwords"):
             rows = [{"Biword": bw, "Documents": str(sorted(docs))}
                     for bw, docs in sorted(biword_idx.items())[:15]]
-            st.dataframe(pd.DataFrame(rows), use_container_width=True)
+            st.dataframe(pd.DataFrame(rows), width="stretch")
 
     with col2:
         st.markdown("**Positional Index** — term → {doc_id → [position list]}")
@@ -445,7 +445,7 @@ elif section.startswith("C"):
                      "Doc→Positions (first 5)": str({d: plist[:5]
                                                      for d, plist in sorted(docs.items())[:3]})}
                     for t, docs in sorted(pos_idx.items())[:10]]
-            st.dataframe(pd.DataFrame(rows), use_container_width=True)
+            st.dataframe(pd.DataFrame(rows), width="stretch")
 
     with st.expander("Why does biword indexing produce false positives?"):
         st.markdown("""
@@ -567,7 +567,7 @@ but cannot distinguish documents where the constituent words appear non-consecut
                 "FP count":           len(bi - pos),
             })
         df_batch = pd.DataFrame(rows)
-        st.dataframe(df_batch, use_container_width=True)
+        st.dataframe(df_batch, width="stretch")
         st.info(
             "**Note on 'index lookup queries':** Doc 4 contains the bigrams "
             "*'index lookup'* and *'lookup queries'* as separate phrase fragments "
@@ -697,7 +697,7 @@ elif section.startswith("D"):
             })
 
         df = pd.DataFrame(rows)
-        st.dataframe(df, use_container_width=True)
+        st.dataframe(df, width="stretch")
 
         avg_r_s = df["BST(random) steps"].mean()
         avg_s_s = df["BST(sorted) steps"].mean()
@@ -838,7 +838,7 @@ Extract bigrams from padded prefix `$vaccin` → `$v, va, ac, cc, ci, in`
             with st.expander("K-gram index entries for query grams"):
                 rows = [{"2-gram": g, "Matching vocab terms": str(sorted(kgram.get(g, set()))[:15])}
                         for g in q_grams]
-                st.dataframe(pd.DataFrame(rows), use_container_width=True)
+                st.dataframe(pd.DataFrame(rows), width="stretch")
 
             st.markdown(f"""
 **Inference:**
@@ -878,7 +878,7 @@ suggestions with distance ≤ threshold (typically 1 or 2).
                 rows = [{"Suggestion": t, "Edit distance": d,
                          "Docs": str(sorted(inv_idx.get(t, [])))}
                         for t, d in results[:15]]
-                st.dataframe(pd.DataFrame(rows), use_container_width=True)
+                st.dataframe(pd.DataFrame(rows), width="stretch")
 
                 best = results[0]
                 st.success(f"Best match: **'{best[0]}'** (distance = {best[1]}), "
@@ -895,10 +895,13 @@ suggestions with distance ≤ threshold (typically 1 or 2).
                         for j in range(1, n+1):
                             dp[i][j] = (dp[i-1][j-1] if s1[i-1] == s2[j-1]
                                         else 1 + min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]))
-                    mat = pd.DataFrame(dp,
-                                       index=[" "] + list(s1),
-                                       columns=[" "] + list(s2))
-                    st.dataframe(mat)
+                    # Use positional labels (e.g. "0:i", "1:n") so repeated
+                    # characters in s1/s2 don't produce duplicate row/column
+                    # names — PyArrow rejects DataFrames with duplicate columns.
+                    row_labels = [" "] + [f"{i}:{c}" for i, c in enumerate(s1)]
+                    col_labels = [" "] + [f"{j}:{c}" for j, c in enumerate(s2)]
+                    mat = pd.DataFrame(dp, index=row_labels, columns=col_labels)
+                    st.dataframe(mat, width="stretch")
             else:
                 st.warning(f"No corrections found within edit distance {max_dist}.")
 
@@ -943,14 +946,14 @@ Vowels and H, W, Y are discarded. Consecutive consonants in the same group are m
                 rows = [{"Matched term": t, "Soundex": c,
                          "Docs": str(sorted(inv_idx.get(t, [])))}
                         for t, c in sorted(matches)]
-                st.dataframe(pd.DataFrame(rows), use_container_width=True)
+                st.dataframe(pd.DataFrame(rows), width="stretch")
                 st.success(f"Found {len(matches)} phonetically similar term(s).")
             else:
                 st.info("No phonetic matches in current vocabulary for this code.")
 
             st.markdown("**Soundex codes — sample vocabulary terms:**")
             sample = [{"Term": t, "Soundex": soundex(t)} for t in sorted(vocab)[:25]]
-            st.dataframe(pd.DataFrame(sample), use_container_width=True)
+            st.dataframe(pd.DataFrame(sample), width="stretch")
 
             st.markdown(f"""
 **Inference:**
@@ -991,7 +994,7 @@ Double Metaphone is a more accurate alternative for production systems.
                 "Complexity":   "O(|V|) hash comparisons",
             },
         ]
-        st.dataframe(pd.DataFrame(rows), use_container_width=True)
+        st.dataframe(pd.DataFrame(rows), width="stretch")
 
 
 # ===========================================================================
