@@ -7,8 +7,8 @@ Framework: Streamlit
 
 Group 64
   Prithvi Mohanty        — 2025AA05707
-  Monika Sharma          — <fill in BITS ID>
-  Hanni Rajavikra...     — <fill in BITS ID>
+  Monika Sharma          — 2025AA05735
+  Hanni Rajavikram       — 2025AA05740
 """
 
 import re
@@ -189,8 +189,8 @@ with st.sidebar:
         "| Name | BITS ID |\n"
         "|------|------|\n"
         "| Prithvi Mohanty | 2025AA05707 |\n"
-        "| Monika Sharma | *(fill in)* |\n"
-        "| Hanni Rajavikra... | *(fill in)* |"
+        "| Monika Sharma | 2025AA05735 |\n"
+        "| Hanni Rajavikram | 2025AA05740 |"
     )
     st.divider()
     section = st.radio("Navigate to section:", [

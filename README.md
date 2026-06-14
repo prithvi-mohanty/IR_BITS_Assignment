@@ -13,7 +13,7 @@
 |------|---------|--------------|
 | Prithvi Mohanty | 2025AA05707 | 34% |
 | Monika Sharma | 2025AA05735 | 33% |
-| Hanni Rajavikra... | 2025AA05740 | 33% |
+| Hanni Rajavikram | 2025AA05740 | 33% |
 
 ---
 
