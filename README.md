@@ -23,8 +23,17 @@
 pip install streamlit nltk pandas
 ```
 
-NLTK data packages (punkt, stopwords, wordnet, averaged_perceptron_tagger) are downloaded
-automatically on first run.
+NLTK data packages (punkt, punkt_tab, stopwords, wordnet, averaged_perceptron_tagger,
+averaged_perceptron_tagger_eng) are downloaded automatically on first run — **internet
+access required the first time**.
+
+**If the lab VM has no internet access**, pre-download NLTK data manually:
+```python
+import nltk
+for pkg in ["punkt","punkt_tab","stopwords","wordnet",
+            "averaged_perceptron_tagger","averaged_perceptron_tagger_eng"]:
+    nltk.download(pkg)
+```
 
 ---
 
