@@ -6,3 +6,8 @@ venv/
 .idea/
 .DS_Store
 *.egg-info/
+
+# Local-only artifacts (not part of submission)
+IR_Assignment1_*.docx
+Report.pdf
+screenshots/

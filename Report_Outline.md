@@ -15,7 +15,7 @@
 | Monika Sharma | 2025AA05735 | 33% |
 | Hanni Rajavikram | 2025AA05740 | 34% |
 
-> **Before submission:** Replace all **[Screenshot: ...]** placeholders with actual screenshots taken from the running app. Also update the same IDs in app.py (docstring lines 10–11 and sidebar markdown) if not already done.
+> **Before submission:** Drop the 11 screenshots (`01_*.png` … `11_*.png`) into the `screenshots/` folder — the image links in this report will resolve automatically. Some screenshots are reused across multiple figures to keep the file count manageable; the captions below tell you exactly what each PNG should depict.
 
 ---
 
@@ -30,7 +30,7 @@ data structures, and demonstrate tolerant retrieval — all through an interacti
 
 ## 2. Streamlit End-to-End Workflow
 
-**[Screenshot: Main Streamlit page with sidebar and title]**
+![Main Streamlit page — sidebar with section navigation, group roster, and title](screenshots/01_document_upload.png)
 
 The application is structured into six sections navigated via a sidebar radio button:
 
@@ -41,7 +41,7 @@ The application is structured into six sections navigated via a sidebar radio bu
 - **E. Tolerant Retrieval** — wildcard k-gram search, Levenshtein spelling correction, and Soundex phonetic matching
 - **G. Discussion & Inference** — written analysis for all components
 
-**[Screenshot: File upload section with document viewer expanded]**
+![Section A — file upload widget with 2–3 documents expanded in the viewer (same screenshot as above is fine)](screenshots/01_document_upload.png)
 
 **Inference:** The Streamlit application provides a fully interactive end-to-end IR workflow through a single web interface. All inputs (corpus, preprocessing settings, queries) are controlled via Streamlit widgets; all outputs (index tables, benchmark results, DP matrices) render as Streamlit dataframes and markdown. No backend code is exposed to the user.
 
@@ -49,7 +49,7 @@ The application is structured into six sections navigated via a sidebar radio bu
 
 ## 3. Text Preprocessing
 
-**[Screenshot: Preprocessing configuration panel — all options enabled]**
+![Section B — preprocessing configuration panel (Lowercase, Stop words, Hyphens, Porter Stemmer) plus Before/After output for 3 docs](screenshots/02_preprocessing_output.png)
 
 The following preprocessing steps are implemented and individually configurable:
 
@@ -60,9 +60,9 @@ The following preprocessing steps are implemented and individually configurable:
 - **Stemming:** Porter Stemmer and Snowball Stemmer available as interchangeable options.
 - **Lemmatization:** WordNet Lemmatizer with automatic POS tagging via `averaged_perceptron_tagger` for morphologically correct base forms.
 
-**[Screenshot: Before/After preprocessing output for 3 documents]**
+![Before vs After preprocessing — first 3 documents shown side by side (same screenshot as above)](screenshots/02_preprocessing_output.png)
 
-**[Screenshot: Inverted index table — first 30 terms with posting lists]**
+![Inverted index table — first 30 vocabulary terms with document-frequency and posting-list columns, plus the vocabulary-reduction metric cards](screenshots/03_inverted_index.png)
 
 Vocabulary reduction achieved by the preprocessing pipeline:
 
@@ -80,7 +80,7 @@ Vocabulary reduction achieved by the preprocessing pipeline:
 
 ## 4. Stemming vs Lemmatization
 
-**[Screenshot: Word-level comparison table]**
+![Word-level comparison — Porter stem / Snowball stem / WordNet lemma / Same? columns for the 8 default words](screenshots/04_stemming_lemmatization_table.png)
 
 Word-level comparison of Porter Stemmer, Snowball Stemmer, and WordNet Lemmatizer:
 
@@ -97,7 +97,7 @@ Word-level comparison of Porter Stemmer, Snowball Stemmer, and WordNet Lemmatize
 
 Stemming collapses inflected forms more aggressively (e.g., `univers`, `studi`) to maximise recall. Lemmatization produces valid dictionary forms (e.g., `university`, `study`) preserving readability and semantic precision.
 
-**[Screenshot: Jaccard similarity experiment results table — 5 queries]**
+![Jaccard similarity experiment — 5-query results table with Stem docs, Lemma docs, Jaccard column, and the Average Jaccard success banner](screenshots/05_jaccard_experiment.png)
 
 Retrieval quality comparison using Jaccard similarity between document sets retrieved by Porter Stemmer vs Lemmatizer:
 
@@ -119,9 +119,9 @@ Retrieval quality comparison using Jaccard similarity between document sets retr
 
 ## 5. Phrase Query Processing
 
-**[Screenshot: Biword index table — first 15 bigrams with posting lists]**
+![Section C — biword index table (first 15 bigrams) and positional index table (first 10 terms) shown side by side](screenshots/06_phrase_query_results.png)
 
-**[Screenshot: Positional index table — first 10 terms with doc→position mappings]**
+![Positional index table — same screenshot, focus on the term → {doc → position list} column](screenshots/06_phrase_query_results.png)
 
 ### Index Representations
 
@@ -133,7 +133,7 @@ Example entry: `"lookup"` → `{4: [46, 48]}` — appears at positions 46 and 48
 
 The positional index enables phrase verification: for a k-word phrase, Doc d matches if and only if the k terms appear in d at positions p, p+1, …, p+k−1 for some starting position p.
 
-**[Screenshot: Side-by-side phrase query results for "index lookup queries" — showing false positive warning box]**
+![Phrase query "index lookup queries" — side-by-side biword vs positional results with the orange ⚠️ False Positive warning banner for Doc 4](screenshots/06_phrase_query_results.png)
 
 ### False Positive Demonstration
 
@@ -151,7 +151,7 @@ The biword index matches Doc 4 because both constituent bigrams are stored. The 
 
 ### Batch Query Results (5 preset queries)
 
-**[Screenshot: Batch comparison table in Section C]**
+![Batch comparison table — 5 preset queries with Biword docs / Positional docs / False positives / FP count columns; the engineered FP `[4]` is visible](screenshots/06_phrase_query_results.png)
 
 | Query | Biword docs | Positional docs | False positives | FP count |
 |-------|------------|-----------------|-----------------|----------|
@@ -169,9 +169,9 @@ The biword index matches Doc 4 because both constituent bigrams are stored. The 
 
 ## 6. Dictionary Search: BST vs B-Tree
 
-**[Screenshot: Benchmark table — 20 random queries with step counts and times]**
+![BST vs B-Tree benchmark — 20 random queries, full per-term step counts and μs latencies for BST(random), BST(sorted), and B-Tree](screenshots/07_bst_btree_benchmark.png)
 
-**[Screenshot: Summary metric cards — avg steps, max steps, avg time for all three structures]**
+![Section D — summary metric cards: avg steps and avg μs for BST(random), BST(sorted, with inverse-colour delta), and B-Tree](screenshots/07_bst_btree_benchmark.png)
 
 ### Implementation Details
 
@@ -208,7 +208,7 @@ The biword index matches Doc 4 because both constituent bigrams are stored. The 
 
 ### A. Wildcard Query (k-gram index, k=2)
 
-**[Screenshot: Wildcard query result for `vaccin*` — k-gram breakdown and matched terms]**
+![Section E mode A — wildcard query `vaccin*`: query 2-grams list, candidate-set, final prefix-filtered matches, and the retrieved documents](screenshots/08_tolerant_wildcard.png)
 
 Query: `vaccin*`
 - Query 2-grams (with `$`-padding on prefix): `$v`, `va`, `ac`, `cc`, `ci`, `in`
@@ -222,9 +222,9 @@ Query: `vaccin*`
 
 ### B. Spelling Correction (edit distance ≤ 2)
 
-**[Screenshot: Spelling correction table for `infromation` — corrections sorted by edit distance]**
+![Section E mode B — spelling correction for `infromation`: corrections table sorted by edit distance, plus the expanded DP matrix for `infromation` → `information`](screenshots/09_tolerant_spelling.png)
 
-**[Screenshot: Edit distance DP matrix for `infromation` → `information`]**
+![Edit distance DP matrix `infromation` → `information` — positional row/column labels (0:i, 1:n, ...) preventing the duplicate-column crash](screenshots/09_tolerant_spelling.png)
 
 Query: `infromation` (transposition of `r` and `o` at positions 3–4)
 - Best correction: **`information`** (edit distance = **2**)
@@ -238,9 +238,9 @@ Query: `infromation` (transposition of `r` and `o` at positions 3–4)
 
 ### C. Phonetic Correction (Soundex)
 
-**[Screenshot: Soundex result for `retrival` — code and matched vocabulary terms]**
+![Section E mode C — Soundex result for `retrival`: query code R361, matched-term table, and the per-vocabulary Soundex code list](screenshots/10_tolerant_phonetic.png)
 
-**[Screenshot: Soundex code table for first 25 vocabulary terms]**
+![Soundex code table — first 25 vocabulary terms with their 4-character codes (same screenshot)](screenshots/10_tolerant_phonetic.png)
 
 Query: `retrival` (misspelling of `retrieval` — missing 'e')
 - Soundex code: **R361**
@@ -256,7 +256,7 @@ Soundex verification:
 
 ### Tolerant Retrieval Comparison
 
-**[Screenshot: Comparison table in Section E]**
+![Section E — final summary comparison table covering wildcard, edit-distance, and Soundex with strengths/limitations/complexity columns](screenshots/10_tolerant_phonetic.png)
 
 | Method | Query Example | Result | Strength | Limitation | Complexity |
 |--------|---------------|--------|----------|-----------|------------|
@@ -270,9 +270,9 @@ Soundex verification:
 
 > **Action required:** Run the app on the BITS Lab portal VM and paste screenshots below.
 
-**[Screenshot: Terminal showing `streamlit run app.py` — timestamp and VM hostname visible]**
+![Virtual Lab — terminal running `streamlit run app.py` with timestamp and hostname visible, plus the browser at `http://localhost:8501` showing the app homepage](screenshots/11_virtual_lab.png)
 
-**[Screenshot: Browser at `http://localhost:8501` — app homepage with sidebar]**
+![Browser at `http://localhost:8501` — running app homepage; the same composite screenshot as above is acceptable](screenshots/11_virtual_lab.png)
 
 Run command:
 ```bash

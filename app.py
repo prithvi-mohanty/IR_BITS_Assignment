@@ -21,9 +21,20 @@ import pandas as pd
 import streamlit as st
 
 import nltk
-for _pkg in ["punkt", "punkt_tab", "stopwords", "wordnet",
-             "averaged_perceptron_tagger", "averaged_perceptron_tagger_eng"]:
-    nltk.download(_pkg, quiet=True)
+
+@st.cache_resource(show_spinner="Downloading NLTK data (first run only)…")
+def _bootstrap_nltk() -> None:
+    """Download required NLTK packages once per cold start.
+
+    On Streamlit Cloud, module-level code reruns on every script invocation,
+    so wrapping this in @cache_resource turns the 6 nltk.download() calls
+    from "every interaction" into "once per container lifetime".
+    """
+    for _pkg in ["punkt", "punkt_tab", "stopwords", "wordnet",
+                 "averaged_perceptron_tagger", "averaged_perceptron_tagger_eng"]:
+        nltk.download(_pkg, quiet=True)
+
+_bootstrap_nltk()
 
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords as _sw_corpus
