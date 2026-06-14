@@ -2,7 +2,6 @@
 
 **Course:** AIMLCZG537 / DSECLZG537 (Information Retrieval), BITS Pilani WILP  
 **Semester:** 2, 2025-26  
-**Deadline:** 15 June 2026, 23:59 PM  
 **Framework:** Streamlit  
 
 ---

@@ -193,7 +193,6 @@ st.set_page_config(
 with st.sidebar:
     st.title("🔍 IR Assignment 1")
     st.markdown("**Course:** AIMLCZG537 / DSECLZG537")
-    st.markdown("**Deadline:** 15 June 2026, 23:59 PM")
     st.divider()
     st.markdown("**Group 64**")
     st.markdown(
@@ -1110,5 +1109,5 @@ which is the key pedagogical goal of this assignment.
 st.divider()
 st.caption(
     "AIMLCZG537 / DSECLZG537 — Information Retrieval | "
-    "Assignment 1 | Group 64 | Deadline: 15 June 2026, 23:59 PM"
+    "Assignment 1 | Group 64"
 )
