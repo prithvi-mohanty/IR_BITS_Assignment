@@ -1,0 +1,4 @@
+[client]
+# Hide the developer tools in the top-right ⋮ menu for non-owner visitors.
+# The Rerun and Settings entries stay visible; Developer options are dropped.
+toolbarMode = "viewer"
